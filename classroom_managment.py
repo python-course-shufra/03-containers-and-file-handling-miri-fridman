@@ -33,40 +33,62 @@ classroom = [
     },
 ]
 
+def find_student(name):
+    for student in classroom:
+        if student['name']==name:
+            return student
+
 
 def add_student(name, email=None):
-    """Add a new student to the classroom
-    with the following keys:
-    'name': the given name
-    'email': if email is given use it otherwise use <name>@example.com
-             in lowercase, you can use the `s.lower()` method
-    'grade': initialize with empty list
-    """
-    pass
-
+    if(email):
+        new_email=email
+    else:
+        new_email=name+"@gmail.com"
+    grades=[]
+    new_student={
+        'name': name,
+        'email': new_email,
+        'grades': grades,
+        
+    }
+    classroom.append(new_student)
+    
 
 def delete_student(name):
-    """Delete a student from the classroom"""
-    pass
+     for student in classroom:
+        if student['name'] == name:
+           classroom.remove(student)
 
 
 def set_email(name, email):
-    """Sets the email of the student"""
-    pass
+    for student in classroom:
+        if student['name'] == name:
+            student['email']=email
+   
 
 
 def add_grade(name, profession, grade):
-    """Adds a new grade to the student grades"""
-    pass
+      for student in classroom:
+        if student['name'] == name:
+            student['grades'].append((profession, grade))
+    
 
 
 def avg_grade(name, profession):
-    """Returns the average of grades of the student
-    in the specified profession
-    """
-    pass
+    grades = []
+    for student in classroom:
+        if student['name'] == name:
+            for grade in student['grades']:
+                if grade[0] == profession:
+                    grades.append(grade[1])
+    if grades:
+        return sum(grades) / len(grades)
 
 
 def get_professions(name):
-    """Returns a list of unique professions that student has grades in"""
-    pass
+    professions = set()
+    for student in classroom:
+        if student['name'] == name:
+            for grade in student['grades']:
+                professions.add(grade[0])
+    return list(professions)
